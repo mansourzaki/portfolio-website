@@ -16,10 +16,10 @@ export const personalInfo = {
 
 // ----- SOCIAL LINKS -----
 export const socialLinks = {
-  github: "https://github.com/mansouralhaddad",
+  github: "https://github.com/mansourzaki",
   linkedin: "https://linkedin.com/in/mansourza",
-  x: "https://x.com",
-  dribbble: "https://dribbble.com",
+  x: "https://x.com/mansssza",
+  // dribbble: "https://dribbble.com",
 };
 
 // ----- ABOUT SECTION -----
@@ -29,7 +29,7 @@ export const aboutInfo = {
     "Currently pursuing my Master's in Artificial Intelligence at FAU Erlangen, Germany. I'm passionate about clean architecture, open-source contributions, and applying AI to solve real-world problems. I actively contribute to Flutter, Riverpod, and other open-source projects.",
   ],
   stats: [
-    { label: "Experience", value: "3+ Years" },
+    { label: "Experience", value: "4+ Years" },
     { label: "Projects", value: "10+ Shipped" },
     { label: "Open Source", value: "Active Contributor" },
   ],
@@ -50,9 +50,16 @@ export const skills = [
 
 // ----- EXPERIENCE -----
 export const experiences = [
+
+  {
+    role: "Master's Student - AI",
+    company: "FAU Erlangen, Germany",
+    period: "Oct 2024 - Present",
+    description: "Pursuing Master of Artificial Intelligence with focus on machine learning, evolutionary algorithms, and applied AI solutions.",
+  },
   {
     role: "Flutter Developer",
-    company: "Sukuk Capital, Saudi Arabia",
+    company: "Sukuk Capital",
     period: "Nov 2022 - Oct 2025",
     description: "Developed a fintech crowdfunding app facilitating 2+ billion SAR in investments. Built complex data-driven UIs, integrated Kotlin/Swift native features, established CI/CD pipelines, and collaborated with 40+ team members.",
   },
@@ -66,14 +73,9 @@ export const experiences = [
     role: "Flutter Developer Intern",
     company: "Ministry of Interiors",
     period: "Jun 2021 - Sep 2021",
-    description: "Created a progress tracking app with Firebase backend, role-based access control, real-time updates, and push notifications. Reduced paperwork by 75% across 10 departments.",
-  },
-  {
-    role: "Master's Student - AI",
-    company: "FAU Erlangen, Germany",
-    period: "Oct 2024 - Present",
-    description: "Pursuing Master of Artificial Intelligence with focus on machine learning, evolutionary algorithms, and applied AI solutions.",
-  },
+    description: "Created a ministry plans management system with Firebase backend, role-based access control, real-time updates, and push notifications. Reduced paperwork by 75% across 10 departments.",
+  }
+
 ];
 
 // ----- PROJECTS -----
@@ -89,12 +91,12 @@ export const projects = [
   },
   {
     id: 2,
-    title: "SyncMe SaaS Platform",
+    title: "SyncMe",
     category: "Web Development",
     description: "E-commerce SaaS product with admin/vendor management, built using Flutter Web, Google Cloud Functions, AWS Amplify, and GraphQL.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
     tags: ["Flutter Web", "GCP", "AWS", "GraphQL"],
-    link: "#",
+    link: "https://syncme.com",
   },
   {
     id: 3,
@@ -103,11 +105,11 @@ export const projects = [
     description: "Flutter web/desktop app using evolutionary algorithms to auto-generate university schedules, reducing manual scheduling from months to 30 minutes.",
     image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
     tags: ["Flutter", "Python", "Flask", "ML", "Firebase"],
-    link: "#",
+    link: "https://github.com/mansourzaki/TimeTabling-Project",
   },
   {
     id: 4,
-    title: "Progress Tracking App",
+    title: "Ministry Plans Manager",
     category: "Mobile Development",
     description: "Enterprise app for task management with Firebase backend, real-time updates, role-based access, and push notifications for 10+ departments.",
     image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
@@ -130,7 +132,7 @@ export const projects = [
     description: "Active contributor to Flutter, Riverpod, and OpenFoodFacts. Written unit tests, fixed issues, and enhanced documentation for major packages.",
     image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&h=600&fit=crop",
     tags: ["Flutter", "Riverpod", "Open Source", "Testing"],
-    link: "https://github.com/mansouralhaddad",
+    link: "https://github.com/mansourzaki",
   },
 ];
 

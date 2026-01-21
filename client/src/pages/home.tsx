@@ -1,30 +1,30 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Mail, MapPin, Send, Briefcase, Code2, Palette, Layers, Sparkles, Menu, X, GraduationCap, Heart, GitBranch, Star, GitPullRequest } from "lucide-react";
-import { SiGithub, SiLinkedin, SiX, SiDribbble } from "react-icons/si";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
-import { insertContactMessageSchema, type InsertContactMessage } from "@shared/schema";
 import {
-  personalInfo,
-  socialLinks,
   aboutInfo,
-  skills,
-  experiences,
-  projects,
-  projectCategories,
   education,
+  experiences,
+  personalInfo,
+  projectCategories,
+  projects,
+  skills,
+  socialLinks,
   volunteering,
 } from "@/config/portfolio";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { insertContactMessageSchema, type InsertContactMessage } from "@shared/schema";
+import { useMutation } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowDown, ArrowUpRight, Briefcase, Code2, GitBranch, GitPullRequest, GraduationCap, Heart, Layers, Mail, MapPin, Menu, Palette, Send, Sparkles, Star, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { SiDribbble, SiGithub, SiLinkedin, SiX } from "react-icons/si";
 
 const socialIconMap = {
   github: SiGithub,
@@ -48,7 +48,6 @@ function Navigation() {
     { href: "#about", label: "About" },
     { href: "#contributions", label: "Open Source" },
     { href: "#projects", label: "Projects" },
-    { href: "#contact", label: "Contact" },
   ];
 
   return (
@@ -81,9 +80,11 @@ function Navigation() {
                 {link.label}
               </a>
             ))}
-            <Button size="sm" data-testid="button-hire-me">
-              <Mail className="w-4 h-4 mr-2" />
-              Hire Me
+            <Button size="sm" asChild data-testid="button-hire-me">
+              <a href={`mailto:${personalInfo.email}`}>
+                <Mail className="w-4 h-4 mr-2" />
+                Hire Me
+              </a>
             </Button>
           </div>
 
@@ -119,9 +120,11 @@ function Navigation() {
                   {link.label}
                 </a>
               ))}
-              <Button className="w-full" data-testid="button-mobile-hire-me">
-                <Mail className="w-4 h-4 mr-2" />
-                Hire Me
+              <Button className="w-full" asChild data-testid="button-mobile-hire-me">
+                <a href={`mailto:${personalInfo.email}`}>
+                  <Mail className="w-4 h-4 mr-2" />
+                  Hire Me
+                </a>
               </Button>
             </div>
           </motion.div>
@@ -194,7 +197,7 @@ function HeroSection() {
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild data-testid="button-get-in-touch">
-              <a href="#contact">Get In Touch</a>
+              <a href={`mailto:${personalInfo.email}`}>Get In Touch</a>
             </Button>
           </motion.div>
 
@@ -891,7 +894,7 @@ export default function Home() {
       <EducationVolunteeringSection />
       <GitHubContributionsSection />
       <ProjectsSection />
-      <ContactSection />
+      {/* <ContactSection /> */}
       <Footer />
     </main>
   );
