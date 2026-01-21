@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Mail, MapPin, Send, Briefcase, Code2, Palette, Layers, Sparkles, Menu, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Mail, MapPin, Send, Briefcase, Code2, Palette, Layers, Sparkles, Menu, X, GraduationCap, Heart, GitBranch, Star, GitPullRequest } from "lucide-react";
 import { SiGithub, SiLinkedin, SiX, SiDribbble } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -22,6 +22,8 @@ import {
   experiences,
   projects,
   projectCategories,
+  education,
+  volunteering,
 } from "@/config/portfolio";
 
 const socialIconMap = {
@@ -44,6 +46,7 @@ function Navigation() {
   const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
+    { href: "#contributions", label: "Open Source" },
     { href: "#projects", label: "Projects" },
     { href: "#contact", label: "Contact" },
   ];
@@ -335,6 +338,237 @@ function AboutSection() {
             </div>
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function EducationVolunteeringSection() {
+  return (
+    <section id="education" className="py-24 md:py-32 bg-muted/30">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4" data-testid="text-education-title">
+            Education & <span className="text-gradient">Volunteering</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            My academic background and community involvement.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3 className="font-serif text-2xl font-bold mb-6 flex items-center gap-3" data-testid="text-education-heading">
+              <GraduationCap className="w-6 h-6 text-primary" />
+              Education
+            </h3>
+            <div className="space-y-6">
+              {education.map((edu, index) => (
+                <Card key={index} className="p-6" data-testid={`education-${index}`}>
+                  <div className="font-bold text-lg">{edu.degree}</div>
+                  <div className="text-primary font-medium">{edu.institution}</div>
+                  <div className="text-muted-foreground text-sm">{edu.period}</div>
+                </Card>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3 className="font-serif text-2xl font-bold mb-6 flex items-center gap-3" data-testid="text-volunteering-heading">
+              <Heart className="w-6 h-6 text-primary" />
+              Volunteering
+            </h3>
+            <div className="space-y-6">
+              {volunteering.map((vol, index) => (
+                <Card key={index} className="p-6" data-testid={`volunteering-${index}`}>
+                  <div className="font-bold text-lg">{vol.role}</div>
+                  <div className="text-primary font-medium">{vol.event}</div>
+                </Card>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GitHubContributionsSection() {
+  const [stats, setStats] = useState<{
+    publicRepos: number;
+    followers: number;
+    contributions: Array<{ repo: string; title: string; url: string; type: string }>;
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGitHubData = async () => {
+      try {
+        const username = socialLinks.github.split('/').pop() || 'mansouralhaddad';
+        
+        const userRes = await fetch(`https://api.github.com/users/${username}`);
+        const userData = await userRes.json();
+        
+        const eventsRes = await fetch(`https://api.github.com/users/${username}/events/public?per_page=10`);
+        const eventsData = await eventsRes.json();
+        
+        const contributions = eventsData
+          .filter((e: any) => ['PushEvent', 'PullRequestEvent', 'IssuesEvent'].includes(e.type))
+          .slice(0, 5)
+          .map((e: any) => ({
+            repo: e.repo.name,
+            title: e.type === 'PushEvent' 
+              ? `${e.payload.commits?.[0]?.message?.slice(0, 50) || 'Code push'}...`
+              : e.type === 'PullRequestEvent'
+              ? e.payload.pull_request?.title || 'Pull Request'
+              : e.payload.issue?.title || 'Issue',
+            url: e.type === 'PullRequestEvent' 
+              ? e.payload.pull_request?.html_url 
+              : e.type === 'IssuesEvent'
+              ? e.payload.issue?.html_url
+              : `https://github.com/${e.repo.name}`,
+            type: e.type.replace('Event', ''),
+          }));
+
+        setStats({
+          publicRepos: userData.public_repos || 0,
+          followers: userData.followers || 0,
+          contributions,
+        });
+      } catch (error) {
+        console.error('Failed to fetch GitHub data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGitHubData();
+  }, []);
+
+  return (
+    <section id="contributions" className="py-24 md:py-32">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4" data-testid="text-contributions-title">
+            Open Source <span className="text-gradient">Contributions</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Actively contributing to Flutter, Riverpod, and other open-source projects.
+          </p>
+        </motion.div>
+
+        {loading ? (
+          <div className="flex justify-center">
+            <div className="animate-pulse space-y-4 w-full max-w-2xl">
+              <div className="h-20 bg-muted rounded-lg" />
+              <div className="h-20 bg-muted rounded-lg" />
+              <div className="h-20 bg-muted rounded-lg" />
+            </div>
+          </div>
+        ) : stats ? (
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-wrap justify-center gap-6 mb-12"
+            >
+              <Card className="p-6 text-center min-w-[150px]" data-testid="stat-repos">
+                <GitBranch className="w-8 h-8 text-primary mx-auto mb-2" />
+                <div className="text-3xl font-bold">{stats.publicRepos}</div>
+                <div className="text-muted-foreground text-sm">Public Repos</div>
+              </Card>
+              <Card className="p-6 text-center min-w-[150px]" data-testid="stat-followers">
+                <Star className="w-8 h-8 text-primary mx-auto mb-2" />
+                <div className="text-3xl font-bold">{stats.followers}</div>
+                <div className="text-muted-foreground text-sm">Followers</div>
+              </Card>
+            </motion.div>
+
+            <div className="max-w-3xl mx-auto">
+              <h3 className="font-serif text-xl font-bold mb-6 flex items-center gap-3 justify-center" data-testid="text-recent-activity">
+                <GitPullRequest className="w-5 h-5 text-primary" />
+                Recent Activity
+              </h3>
+              <div className="space-y-4">
+                {stats.contributions.length > 0 ? (
+                  stats.contributions.map((contribution, index) => (
+                    <motion.a
+                      key={index}
+                      href={contribution.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="block"
+                      data-testid={`contribution-${index}`}
+                    >
+                      <Card className="p-4 hover-elevate cursor-pointer">
+                        <div className="flex items-start gap-4">
+                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <SiGithub className="w-5 h-5 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-medium truncate">{contribution.title}</div>
+                            <div className="text-sm text-muted-foreground truncate">{contribution.repo}</div>
+                          </div>
+                          <Badge variant="secondary">{contribution.type}</Badge>
+                        </div>
+                      </Card>
+                    </motion.a>
+                  ))
+                ) : (
+                  <Card className="p-6 text-center">
+                    <p className="text-muted-foreground">Loading recent contributions...</p>
+                  </Card>
+                )}
+              </div>
+            </div>
+
+            <div className="text-center mt-8">
+              <Button asChild variant="outline">
+                <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" data-testid="link-view-github">
+                  <SiGithub className="w-4 h-4 mr-2" />
+                  View Full GitHub Profile
+                </a>
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <Card className="p-8 text-center max-w-2xl mx-auto">
+            <SiGithub className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-muted-foreground">Unable to load GitHub data. Please check back later.</p>
+            <Button asChild variant="outline" className="mt-4">
+              <a href={socialLinks.github} target="_blank" rel="noopener noreferrer">
+                View GitHub Profile
+              </a>
+            </Button>
+          </Card>
+        )}
       </div>
     </section>
   );
@@ -654,6 +888,8 @@ export default function Home() {
       <Navigation />
       <HeroSection />
       <AboutSection />
+      <EducationVolunteeringSection />
+      <GitHubContributionsSection />
       <ProjectsSection />
       <ContactSection />
       <Footer />
