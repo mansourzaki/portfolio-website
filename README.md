@@ -21,58 +21,64 @@ A modern, responsive portfolio website template built with React, TypeScript, an
 
 ## How to Customize
 
-All the content you need to change is in one file: `client/src/pages/home.tsx`
+**All customization happens in ONE file:** `client/src/config/portfolio.ts`
 
-### 1. Personal Information
+### Personal Information
 
-Find the **HeroSection** and update the headline text:
-
-```tsx
-// Around line 220-240
-<h1>
-  Creative Developer  // Change this to your title
-  <span className="text-gradient">& Designer</span>
-</h1>
+```typescript
+export const personalInfo = {
+  name: "Your Name",                    // Shown in footer
+  title: "Creative Developer",          // Main headline
+  subtitle: "& Designer",               // Headline second line
+  description: "Your bio/tagline...",   // Hero description
+  location: "Your City, Country",       // Shown in About & Contact
+  email: "your@email.com",              // Contact email
+  availableForWork: true,               // Show/hide "Available" badge
+};
 ```
 
-### 2. Projects
+### Social Links
 
-Find the `projects` array near the top of the file (around line 17):
-
-```tsx
-const projects = [
-  {
-    id: 1,
-    title: "Your Project Name",
-    category: "Web Development",  // Options: "Web Development", "UI/UX Design", "Mobile Development"
-    description: "A brief description of your project.",
-    image: "https://your-image-url.com/image.jpg",  // Use Unsplash or your own images
-    tags: ["React", "Node.js", "MongoDB"],  // Technologies used
-    link: "https://your-project-link.com",  // Live project URL
-  },
-  // Add more projects...
-];
+```typescript
+export const socialLinks = {
+  github: "https://github.com/yourusername",
+  linkedin: "https://linkedin.com/in/yourusername",
+  x: "https://x.com/yourusername",
+  dribbble: "https://dribbble.com/yourusername",
+};
 ```
 
-### 3. Skills
+### About Section
 
-Find the `skills` array (around line 83):
+```typescript
+export const aboutInfo = {
+  bio: [
+    "First paragraph of your bio...",
+    "Second paragraph of your bio...",
+  ],
+  stats: [
+    { label: "Development", value: "6+ Years" },
+    { label: "Design", value: "50+ Projects" },
+    { label: "Products", value: "20+ Launched" },
+  ],
+};
+```
 
-```tsx
-const skills = [
-  { name: "React / Next.js", level: 95 },  // level is 0-100 for the progress bar
+### Skills
+
+```typescript
+export const skills = [
+  { name: "React / Next.js", level: 95 },  // level: 0-100 for progress bar
   { name: "TypeScript", level: 90 },
   { name: "Node.js", level: 88 },
-  // Add or modify your skills...
+  // Add more skills...
 ];
 ```
 
-### 4. Experience
+### Experience
 
-Find the `experiences` array (around line 92):
-
-```tsx
-const experiences = [
+```typescript
+export const experiences = [
   {
     role: "Your Job Title",
     company: "Company Name",
@@ -83,49 +89,42 @@ const experiences = [
 ];
 ```
 
-### 5. Contact Information
+### Projects
 
-In the **ContactSection** (around line 580-600), update:
+```typescript
+export const projects = [
+  {
+    id: 1,
+    title: "Project Name",
+    category: "Web Development",  // Must match a category below
+    description: "Brief description...",
+    image: "https://your-image-url.com/image.jpg",
+    tags: ["React", "Node.js"],
+    link: "https://live-project-url.com",
+  },
+  // Add more projects...
+];
 
-```tsx
-// Email
-<a href="mailto:your@email.com">your@email.com</a>
-
-// Location
-<div>Your City, Country</div>
-```
-
-### 6. Social Links
-
-Find the social media arrays in multiple sections and update the URLs:
-
-```tsx
-{ Icon: SiGithub, href: "https://github.com/yourusername", label: "GitHub" },
-{ Icon: SiLinkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
-{ Icon: SiX, href: "https://x.com/yourusername", label: "X" },
-{ Icon: SiDribbble, href: "https://dribbble.com/yourusername", label: "Dribbble" },
-```
-
-### 7. About Section Text
-
-In the **AboutSection** (around line 310-330), update the bio paragraphs:
-
-```tsx
-<p>
-  I'm a passionate... // Your personal bio
-</p>
+// Available categories for filtering
+export const projectCategories = [
+  "All",
+  "Web Development",
+  "UI/UX Design",
+  "Mobile Development",
+  // Add custom categories here
+];
 ```
 
 ## Customizing Colors
 
-The color scheme is defined in `client/src/index.css`. The main colors to change:
+Edit `client/src/index.css` to change the color scheme:
 
 ```css
-/* Light mode - around line 51 */
---primary: 217 91% 53%;      /* Blue accent color */
---accent: 38 92% 50%;        /* Amber highlight color */
+/* Light mode colors (line ~51) */
+--primary: 217 91% 53%;      /* Blue - buttons, links, accents */
+--accent: 38 92% 50%;        /* Amber - highlights, gradients */
 
-/* Dark mode - around line 129 */
+/* Dark mode colors (line ~129) */
 --primary: 217 91% 60%;
 --accent: 38 92% 55%;
 ```
@@ -134,35 +133,26 @@ Colors use HSL format: `Hue Saturation% Lightness%`
 
 ## Customizing Fonts
 
-Fonts are set in `client/src/index.css` (around line 48):
+Edit `client/src/index.css` (line ~48):
 
 ```css
---font-sans: 'Inter', sans-serif;      /* Body text */
---font-serif: 'Playfair Display', Georgia, serif;  /* Headings */
+--font-sans: 'Inter', sans-serif;              /* Body text */
+--font-serif: 'Playfair Display', serif;       /* Headings */
 ```
 
 ## Project Structure
 
 ```
 client/src/
+  config/
+    portfolio.ts    <-- EDIT THIS FILE for all content
   pages/
-    home.tsx        <-- Main file to edit for content
+    home.tsx        <-- Layout and components (don't edit unless customizing layout)
   index.css         <-- Colors and fonts
-  
+
 server/
   routes.ts         <-- Contact form API
-  storage.ts        <-- Data storage
 ```
-
-## Adding New Project Categories
-
-1. Add your new category to the `categories` array in **ProjectsSection**:
-
-```tsx
-const categories = ["All", "Web Development", "UI/UX Design", "Mobile Development", "Your New Category"];
-```
-
-2. Use the same category name in your project's `category` field.
 
 ## Contact Form
 

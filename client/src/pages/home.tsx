@@ -14,93 +14,22 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { insertContactMessageSchema, type InsertContactMessage } from "@shared/schema";
+import {
+  personalInfo,
+  socialLinks,
+  aboutInfo,
+  skills,
+  experiences,
+  projects,
+  projectCategories,
+} from "@/config/portfolio";
 
-const projects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    category: "Web Development",
-    description: "A modern e-commerce solution with seamless checkout experience and real-time inventory management.",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-    tags: ["React", "Node.js", "MongoDB"],
-    link: "#",
-  },
-  {
-    id: 2,
-    title: "Finance Dashboard",
-    category: "UI/UX Design",
-    description: "Comprehensive financial analytics dashboard with interactive charts and real-time data visualization.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-    tags: ["Figma", "React", "D3.js"],
-    link: "#",
-  },
-  {
-    id: 3,
-    title: "Mobile Banking App",
-    category: "Mobile Development",
-    description: "Intuitive mobile banking experience with biometric authentication and instant transfers.",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
-    tags: ["React Native", "TypeScript", "Firebase"],
-    link: "#",
-  },
-  {
-    id: 4,
-    title: "AI Content Platform",
-    category: "Web Development",
-    description: "AI-powered content generation platform with smart templates and collaboration features.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
-    tags: ["Next.js", "OpenAI", "PostgreSQL"],
-    link: "#",
-  },
-  {
-    id: 5,
-    title: "Healthcare Portal",
-    category: "UI/UX Design",
-    description: "Patient-centric healthcare portal with appointment scheduling and telemedicine integration.",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
-    tags: ["Figma", "Vue.js", "Node.js"],
-    link: "#",
-  },
-  {
-    id: 6,
-    title: "Real Estate Marketplace",
-    category: "Web Development",
-    description: "Property listing platform with virtual tours, smart filtering, and mortgage calculator.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
-    tags: ["React", "GraphQL", "AWS"],
-    link: "#",
-  },
-];
-
-const skills = [
-  { name: "React / Next.js", level: 95 },
-  { name: "TypeScript", level: 90 },
-  { name: "Node.js", level: 88 },
-  { name: "UI/UX Design", level: 85 },
-  { name: "Python", level: 80 },
-  { name: "AWS / Cloud", level: 78 },
-];
-
-const experiences = [
-  {
-    role: "Senior Full Stack Developer",
-    company: "Tech Innovation Labs",
-    period: "2022 - Present",
-    description: "Leading development of enterprise-scale applications and mentoring junior developers.",
-  },
-  {
-    role: "Full Stack Developer",
-    company: "Digital Solutions Inc",
-    period: "2020 - 2022",
-    description: "Built and maintained multiple client projects using modern web technologies.",
-  },
-  {
-    role: "Frontend Developer",
-    company: "Creative Agency",
-    period: "2018 - 2020",
-    description: "Developed responsive web applications with focus on user experience.",
-  },
-];
+const socialIconMap = {
+  github: SiGithub,
+  linkedin: SiLinkedin,
+  x: SiX,
+  dribbble: SiDribbble,
+};
 
 function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -219,10 +148,12 @@ function HeroSection() {
             transition={{ delay: 0.2 }}
             className="mb-6"
           >
-            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium" data-testid="badge-status">
-              <Sparkles className="w-4 h-4 mr-2" />
-              Available for new projects
-            </Badge>
+            {personalInfo.availableForWork && (
+              <Badge variant="secondary" className="px-4 py-2 text-sm font-medium" data-testid="badge-status">
+                <Sparkles className="w-4 h-4 mr-2" />
+                Available for new projects
+              </Badge>
+            )}
           </motion.div>
 
           <motion.h1
@@ -232,9 +163,9 @@ function HeroSection() {
             className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6"
             data-testid="text-hero-title"
           >
-            Creative Developer
+            {personalInfo.title}
             <br />
-            <span className="text-gradient">& Designer</span>
+            <span className="text-gradient">{personalInfo.subtitle}</span>
           </motion.h1>
 
           <motion.p
@@ -244,8 +175,7 @@ function HeroSection() {
             className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10"
             data-testid="text-hero-description"
           >
-            I craft exceptional digital experiences that blend aesthetics with functionality.
-            Specializing in modern web development and intuitive user interfaces.
+            {personalInfo.description}
           </motion.p>
 
           <motion.div
@@ -271,23 +201,21 @@ function HeroSection() {
             transition={{ delay: 0.8 }}
             className="flex items-center justify-center gap-6 mt-12"
           >
-            {[
-              { Icon: SiGithub, href: "https://github.com", label: "GitHub" },
-              { Icon: SiLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
-              { Icon: SiX, href: "https://x.com", label: "X" },
-              { Icon: SiDribbble, href: "https://dribbble.com", label: "Dribbble" },
-            ].map(({ Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors p-2"
-                data-testid={`link-social-${label.toLowerCase()}`}
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
+            {Object.entries(socialLinks).map(([key, href]) => {
+              const Icon = socialIconMap[key as keyof typeof socialIconMap];
+              return (
+                <a
+                  key={key}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                  data-testid={`link-social-${key}`}
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              );
+            })}
           </motion.div>
         </motion.div>
 
@@ -327,33 +255,29 @@ function AboutSection() {
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6" data-testid="text-about-title">
               About <span className="text-gradient">Me</span>
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8" data-testid="text-about-description">
-              I'm a passionate full-stack developer and designer with over 6 years of experience
-              creating digital products that make a difference. My approach combines clean code
-              with thoughtful design to build experiences that users love.
-            </p>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              When I'm not coding, you'll find me exploring new technologies, contributing to
-              open-source projects, or sharing my knowledge through technical writing and mentoring.
-            </p>
+            {aboutInfo.bio.map((paragraph, index) => (
+              <p key={index} className="text-muted-foreground text-lg leading-relaxed mb-8" data-testid={index === 0 ? "text-about-description" : undefined}>
+                {paragraph}
+              </p>
+            ))}
 
             <div className="flex items-center gap-4 mb-12">
               <MapPin className="w-5 h-5 text-primary" />
-              <span className="text-muted-foreground">Based in San Francisco, CA</span>
+              <span className="text-muted-foreground">Based in {personalInfo.location}</span>
             </div>
 
             <div className="grid grid-cols-3 gap-6">
-              {[
-                { icon: Code2, label: "Development", value: "6+ Years" },
-                { icon: Palette, label: "Design", value: "50+ Projects" },
-                { icon: Layers, label: "Products", value: "20+ Launched" },
-              ].map(({ icon: Icon, label, value }) => (
+              {aboutInfo.stats.map(({ label, value }, index) => {
+                const icons = [Code2, Palette, Layers];
+                const Icon = icons[index % icons.length];
+                return (
                 <div key={label} className="text-center p-4 rounded-lg bg-background" data-testid={`stat-${label.toLowerCase()}`}>
-                  <Icon className="w-6 h-6 mx-auto mb-2 text-primary" />
-                  <div className="font-bold text-2xl mb-1">{value}</div>
-                  <div className="text-muted-foreground text-sm">{label}</div>
-                </div>
-              ))}
+                    <Icon className="w-6 h-6 mx-auto mb-2 text-primary" />
+                    <div className="font-bold text-2xl mb-1">{value}</div>
+                    <div className="text-muted-foreground text-sm">{label}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -418,7 +342,7 @@ function AboutSection() {
 
 function ProjectsSection() {
   const [filter, setFilter] = useState("All");
-  const categories = ["All", "Web Development", "UI/UX Design", "Mobile Development"];
+  const categories = projectCategories;
 
   const filteredProjects = filter === "All"
     ? projects
@@ -577,8 +501,8 @@ function ContactSection() {
                 </div>
                 <div>
                   <div className="text-muted-foreground text-sm">Email</div>
-                  <a href="mailto:hello@portfolio.com" className="font-medium hover:text-primary transition-colors" data-testid="link-email">
-                    hello@portfolio.com
+                  <a href={`mailto:${personalInfo.email}`} className="font-medium hover:text-primary transition-colors" data-testid="link-email">
+                    {personalInfo.email}
                   </a>
                 </div>
               </div>
@@ -589,7 +513,7 @@ function ContactSection() {
                 </div>
                 <div>
                   <div className="text-muted-foreground text-sm">Location</div>
-                  <div className="font-medium" data-testid="text-location">San Francisco, CA</div>
+                  <div className="font-medium" data-testid="text-location">{personalInfo.location}</div>
                 </div>
               </div>
             </div>
@@ -597,23 +521,21 @@ function ContactSection() {
             <div className="mt-12">
               <div className="text-muted-foreground mb-4">Connect with me</div>
               <div className="flex gap-4">
-                {[
-                  { Icon: SiGithub, href: "https://github.com", label: "GitHub" },
-                  { Icon: SiLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                  { Icon: SiX, href: "https://x.com", label: "X" },
-                  { Icon: SiDribbble, href: "https://dribbble.com", label: "Dribbble" },
-                ].map(({ Icon, href, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all"
-                    data-testid={`link-contact-social-${label.toLowerCase()}`}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </a>
-                ))}
+                {Object.entries(socialLinks).map(([key, href]) => {
+                  const Icon = socialIconMap[key as keyof typeof socialIconMap];
+                  return (
+                    <a
+                      key={key}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all"
+                      data-testid={`link-contact-social-${key}`}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -698,28 +620,27 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-serif text-xl font-bold" data-testid="text-footer-logo">
-            Portfolio<span className="text-gradient">.</span>
+            {personalInfo.name}<span className="text-gradient">.</span>
           </div>
           <div className="text-muted-foreground text-sm" data-testid="text-copyright">
             © {new Date().getFullYear()} All rights reserved.
           </div>
           <div className="flex gap-6">
-            {[
-              { Icon: SiGithub, href: "https://github.com", label: "GitHub" },
-              { Icon: SiLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
-              { Icon: SiX, href: "https://x.com", label: "X" },
-            ].map(({ Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                data-testid={`link-footer-social-${label.toLowerCase()}`}
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
+            {Object.entries(socialLinks).slice(0, 3).map(([key, href]) => {
+              const Icon = socialIconMap[key as keyof typeof socialIconMap];
+              return (
+                <a
+                  key={key}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  data-testid={`link-footer-social-${key}`}
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
