@@ -5,128 +5,164 @@
 
 // ----- PERSONAL INFO -----
 export const personalInfo = {
-  name: "Portfolio",
-  title: "Creative Developer",
-  subtitle: "& Designer",
-  description: "I craft exceptional digital experiences that blend aesthetics with functionality. Specializing in modern web development and intuitive user interfaces.",
-  location: "San Francisco, CA",
-  email: "hello@portfolio.com",
+  name: "Mansour Alhaddad",
+  title: "Flutter Developer",
+  subtitle: "& AI Engineer",
+  description: "Mobile & Web Developer specializing in Flutter with 3+ years of experience building fintech, SaaS, and enterprise applications. Currently pursuing a Master's in Artificial Intelligence.",
+  location: "Erlangen, Germany",
+  email: "mansourzaki2000@gmail.com",
   availableForWork: true,
 };
 
 // ----- SOCIAL LINKS -----
 export const socialLinks = {
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
-  x: "https://x.com",
-  dribbble: "https://dribbble.com",
+  github: "https://github.com/mansourzaki",
+  linkedin: "https://linkedin.com/in/mansourza",
+  x: "https://x.com/mansssza",
+  // dribbble: "https://dribbble.com",
 };
 
 // ----- ABOUT SECTION -----
 export const aboutInfo = {
   bio: [
-    "I'm a passionate full-stack developer and designer with over 6 years of experience creating digital products that make a difference. My approach combines clean code with thoughtful design to build experiences that users love.",
-    "When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing my knowledge through technical writing and mentoring.",
+    "I'm a Flutter Developer with 3+ years of experience building high-performance mobile and web applications. I've worked on fintech platforms handling billions in transactions, SaaS products, and enterprise solutions that improved operational efficiency by up to 75%.",
+    "Currently pursuing my Master's in Artificial Intelligence at FAU Erlangen, Germany. I'm passionate about clean architecture, open-source contributions, and applying AI to solve real-world problems. I actively contribute to Flutter, Riverpod, and other open-source projects.",
   ],
   stats: [
-    { label: "Development", value: "6+ Years" },
-    { label: "Design", value: "50+ Projects" },
-    { label: "Products", value: "20+ Launched" },
+    { label: "Experience", value: "4+ Years" },
+    { label: "Projects", value: "10+ Shipped" },
+    { label: "Open Source", value: "Active Contributor" },
   ],
 };
 
 // ----- SKILLS -----
 // Level is 0-100 for the progress bar
 export const skills = [
-  { name: "React / Next.js", level: 95 },
-  { name: "TypeScript", level: 90 },
-  { name: "Node.js", level: 88 },
-  { name: "UI/UX Design", level: 85 },
-  { name: "Python", level: 80 },
-  { name: "AWS / Cloud", level: 78 },
+  { name: "Flutter / Dart", level: 95 },
+  { name: "React / Next.js", level: 85 },
+  { name: "TypeScript", level: 85 },
+  { name: "Firebase / Cloud Functions", level: 90 },
+  { name: "RESTful APIs / GraphQL", level: 88 },
+  { name: "Python / Flask", level: 75 },
+  { name: "Riverpod / Provider", level: 92 },
+  { name: "Clean Architecture", level: 90 },
 ];
 
 // ----- EXPERIENCE -----
 export const experiences = [
+
   {
-    role: "Senior Full Stack Developer",
-    company: "Tech Innovation Labs",
-    period: "2022 - Present",
-    description: "Leading development of enterprise-scale applications and mentoring junior developers.",
+    role: "Master's Student - AI",
+    company: "FAU Erlangen, Germany",
+    period: "Oct 2024 - Present",
+    description: "Pursuing Master of Artificial Intelligence with focus on machine learning, evolutionary algorithms, and applied AI solutions.",
   },
   {
-    role: "Full Stack Developer",
-    company: "Digital Solutions Inc",
-    period: "2020 - 2022",
-    description: "Built and maintained multiple client projects using modern web technologies.",
+    role: "Flutter Developer",
+    company: "Sukuk Capital",
+    period: "Nov 2022 - Oct 2025",
+    description: "Developed a fintech crowdfunding app facilitating 2+ billion SAR in investments. Built complex data-driven UIs, integrated Kotlin/Swift native features, established CI/CD pipelines, and collaborated with 40+ team members.",
   },
   {
-    role: "Frontend Developer",
-    company: "Creative Agency",
-    period: "2018 - 2020",
-    description: "Developed responsive web applications with focus on user experience.",
+    role: "Flutter Developer (Web & Mobile)",
+    company: "SyncMe Startup",
+    period: "May 2023 - Mar 2024",
+    description: "Built Flutter web apps for admin/vendor management, developed a SaaS e-commerce product, and utilized Google Cloud Functions, AWS Amplify, and GraphQL for scalable backend services.",
   },
+  {
+    role: "Flutter Developer Intern",
+    company: "Ministry of Interiors",
+    period: "Jun 2021 - Sep 2021",
+    description: "Created a ministry plans management system with Firebase backend, role-based access control, real-time updates, and push notifications. Reduced paperwork by 75% across 10 departments.",
+  }
+
 ];
 
 // ----- PROJECTS -----
-// Categories: "Web Development", "UI/UX Design", "Mobile Development"
 export const projects = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    category: "Web Development",
-    description: "A modern e-commerce solution with seamless checkout experience and real-time inventory management.",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-    tags: ["React", "Node.js", "MongoDB"],
+    title: "Sukuk Capital",
+    category: "Mobile Development",
+    description: "High-performance fintech crowdfunding app facilitating investments exceeding 2 billion SAR with complex data visualizations and interactive charts.",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
+    tags: ["Flutter", "Kotlin", "Swift", "CI/CD", "Fintech"],
     link: "#",
   },
   {
     id: 2,
-    title: "Finance Dashboard",
-    category: "UI/UX Design",
-    description: "Comprehensive financial analytics dashboard with interactive charts and real-time data visualization.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-    tags: ["Figma", "React", "D3.js"],
-    link: "#",
+    title: "SyncMe",
+    category: "Web Development",
+    description: "E-commerce SaaS product with admin/vendor management, built using Flutter Web, Google Cloud Functions, AWS Amplify, and GraphQL.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+    tags: ["Flutter Web", "GCP", "AWS", "GraphQL"],
+    link: "https://syncme.com",
   },
   {
     id: 3,
-    title: "Mobile Banking App",
-    category: "Mobile Development",
-    description: "Intuitive mobile banking experience with biometric authentication and instant transfers.",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
-    tags: ["React Native", "TypeScript", "Firebase"],
-    link: "#",
+    title: "Evolutionary Timetable Scheduler",
+    category: "AI/ML",
+    description: "Flutter web/desktop app using evolutionary algorithms to auto-generate university schedules, reducing manual scheduling from months to 30 minutes.",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
+    tags: ["Flutter", "Python", "Flask", "ML", "Firebase"],
+    link: "https://github.com/mansourzaki/TimeTabling-Project",
   },
   {
     id: 4,
-    title: "AI Content Platform",
-    category: "Web Development",
-    description: "AI-powered content generation platform with smart templates and collaboration features.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
-    tags: ["Next.js", "OpenAI", "PostgreSQL"],
+    title: "Ministry Plans Manager",
+    category: "Mobile Development",
+    description: "Enterprise app for task management with Firebase backend, real-time updates, role-based access, and push notifications for 10+ departments.",
+    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
+    tags: ["Flutter", "Firebase", "Real-time", "Push Notifications"],
     link: "#",
   },
   {
     id: 5,
-    title: "Healthcare Portal",
-    category: "UI/UX Design",
-    description: "Patient-centric healthcare portal with appointment scheduling and telemedicine integration.",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
-    tags: ["Figma", "Vue.js", "Node.js"],
-    link: "#",
+    title: "Abushagra.de",
+    category: "Web Development",
+    description: "Responsive web application built with Next.js, TypeScript, and React featuring SSR, modular components, and secure form handling.",
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
+    tags: ["Next.js", "TypeScript", "React", "SSR"],
+    link: "https://abushagra.de/",
   },
   {
     id: 6,
-    title: "Real Estate Marketplace",
-    category: "Web Development",
-    description: "Property listing platform with virtual tours, smart filtering, and mortgage calculator.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
-    tags: ["React", "GraphQL", "AWS"],
-    link: "#",
+    title: "Open Source Contributions",
+    category: "Open Source",
+    description: "Active contributor to Flutter, Riverpod, and OpenFoodFacts. Written unit tests, fixed issues, and enhanced documentation for major packages.",
+    image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&h=600&fit=crop",
+    tags: ["Flutter", "Riverpod", "Open Source", "Testing"],
+    link: "https://github.com/mansourzaki",
   },
 ];
 
 // ----- PROJECT CATEGORIES -----
-// Add or remove categories here
-export const projectCategories = ["All", "Web Development", "UI/UX Design", "Mobile Development"];
+export const projectCategories = [
+  "All",
+  "Mobile Development",
+  "Web Development",
+  "AI/ML",
+  "Open Source",
+];
+
+// ----- EDUCATION -----
+export const education = [
+  {
+    degree: "Master of Artificial Intelligence",
+    institution: "FAU Erlangen, Germany",
+    period: "Oct 2024 - Present",
+  },
+  {
+    degree: "Bachelor of Computer Science",
+    institution: "IUG, Palestine",
+    period: "Graduated June 2022",
+  },
+];
+
+// ----- VOLUNTEERING -----
+export const volunteering = [
+  {
+    role: "Volunteer",
+    event: "Fluttercon Berlin 2025",
+  },
+];
